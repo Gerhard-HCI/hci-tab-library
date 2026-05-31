@@ -1,1 +1,43 @@
+<!-- ════════════════════════════════════════════════════════════════════════════
+     HCI UTILITIES TAB — v1.0
+     Source: gerhard-hci/hci-tab-library/utilities
+     Origin: ported from the Rotberg Japan 2026 build
+
+     INTEGRATION (3 steps):
+       1. Paste tab.css into your site's <style> block.
+       2. Paste this snippet INSIDE your existing utilities panel section
+          (or wherever you want Utilities content to render).
+       3. Paste tab.js into your site's <script> block, edit the UTILITIES
+          data object near the top, and ensure your tab nav has a button
+          with data-tab="utilities".
+
+     This file is the INNER container only — just the empty div that tab.js
+     writes into. Your host site already has its own panel/tab structure;
+     drop this inside the relevant panel.
+
+     Typical host structure:
+
+         <section class="panel" id="p-utilities" role="tabpanel">
+           <!-- paste the snippet below here -->
+         </section>
+
+     The container id MUST be "utilities-content" — tab.js looks for it by id.
+     All Utilities-specific CSS classes are namespaced "util-*" so this block
+     is fully self-contained and cannot collide with host CSS.
+
+     SECTIONS RENDERED (all optional, set enabled:false to hide):
+       1. Restaurant tracker — reads meals from data or from window.TRIP,
+          with optional localStorage persistence for ticked items
+       2. Dietary notes — per-person allergy lists + "show the chef" card
+       3. JPY · USD converter — live two-way input
+       4. Dining etiquette — fragrance critical, counter rules, cancellation note
+       5. Travel notes — Suica, Shinkansen, taxis, eSIM, cash, power
+
+     DO NOT MODIFY this block when porting to a new build. Only the data
+     in tab.js needs to change per client.
+     ════════════════════════════════════════════════════════════════════════════ -->
+
+<!-- ════ BEGIN UTILITIES TAB v1.0 ════ -->
+<div id="utilities-content"></div>
+<!-- ════ END UTILITIES TAB ════ -->
 
