@@ -1,1 +1,61 @@
+/* ════════════════════════════════════════════════════════════════════════════
+   HCI EMERGENCY TAB — v1.0 — STYLES
+   Source: gerhard-hci/hci-tab-library/emergency
+
+   All classes are namespaced em-* so this block is fully self-contained and
+   cannot collide with host CSS. It assumes the host site defines the
+   standard HCI palette as CSS custom properties on :root.  If a variable
+   is missing, the rule falls back to a sensible default so the tab still
+   renders on a bare page.
+
+   EXPECTED HOST CSS VARIABLES (with fallbacks shown):
+     --rad         16px        large card radius
+     --rad-sm      10px        small card radius
+     --card        #fff        card background
+     --line        #e3dccd     hard divider line
+     --line-soft   #ede7d8     soft divider line
+     --ink         #0a1733     primary text / dark accents
+     --ink-soft    #2a3554     secondary text
+     --ink-mute    #5b6685     muted captions
+     --gold        #b08d4a     accent gold
+     --serif       'Cormorant Garamond', 'Times New Roman', serif
+     --sh-sm       0 1px 3px rgba(10,23,51,.06)
+
+   DO NOT MODIFY this block when porting to a new build.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ════ BEGIN EMERGENCY TAB v1.0 ════ */
+
+/* Card container — base unit for every Emergency section */
+.em-card{background:var(--card,#fff);border:1px solid var(--line,#e3dccd);border-radius:var(--rad,16px);padding:22px 20px;margin-bottom:16px;box-shadow:var(--sh-sm,0 1px 3px rgba(10,23,51,.06))}
+.em-card h3{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:22px;font-weight:500;letter-spacing:-.01em;margin:0 0 4px;color:var(--ink,#0a1733)}
+.em-card-sub{font-size:12px;color:var(--ink-mute,#5b6685);margin:0 0 14px;letter-spacing:.04em}
+
+/* Two-up grid for the big emergency-number buttons (Police / Ambulance) */
+.em-eg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.em-eb-btn{background:var(--ink,#0a1733);color:#f3eee0;padding:14px;border-radius:var(--rad-sm,10px);display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:72px;border:1px solid rgba(255,255,255,.08);text-align:left;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:background .15s}
+.em-eb-btn:active{background:var(--ink-soft,#2a3554)}
+.em-eb-btn .l{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,238,224,.65)}
+.em-eb-btn .v{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:18px;font-weight:500}
+
+/* Contact row — used for operator contacts, hospitals, embassies */
+.em-cr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line-soft,#ede7d8)}
+.em-cr:first-of-type{border-top:0}
+.em-cr .n{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:17px;font-weight:500;margin-bottom:2px;color:var(--ink,#0a1733)}
+.em-cr .r{font-size:11.5px;color:var(--ink-mute,#5b6685)}
+
+/* Pill button to the right of each contact row (Call / Map) */
+.em-cb{background:var(--ink,#0a1733);color:#f3eee0;padding:9px 16px;border-radius:99px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;flex-shrink:0;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:background .15s,opacity .15s}
+.em-cb:active{background:var(--ink-soft,#2a3554)}
+.em-cb.alt{background:var(--card,#fff);color:var(--ink,#0a1733);border:1px solid var(--ink,#0a1733)}
+.em-cb.alt:active{background:var(--line-soft,#ede7d8)}
+
+/* Essential-Japanese phrase row */
+.em-ph{display:grid;gap:4px;padding:14px 0;border-top:1px solid var(--line-soft,#ede7d8)}
+.em-ph:first-of-type{border-top:0}
+.em-ph .ja{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:22px;font-weight:500;line-height:1.2;color:var(--ink,#0a1733)}
+.em-ph .ro{font-style:italic;color:var(--gold,#b08d4a);font-size:13.5px;font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif)}
+.em-ph .en{font-size:13px;color:var(--ink-mute,#5b6685)}
+
+/* ════ END EMERGENCY TAB ════ */
 
