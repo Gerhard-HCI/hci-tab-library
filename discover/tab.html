@@ -1,1 +1,35 @@
+<!-- ════════════════════════════════════════════════════════════════════════════
+     HCI DISCOVER TAB — v1.1
+     Source: gerhard-hci/hci-tab-library/discover
+     Origin:  ported from the Khoa Nov-2026 build, refined in Rotberg Japan 2026
+
+     INTEGRATION (3 steps):
+       1. Paste tab.css into your site's <style> block.
+       2. Paste this snippet INSIDE your existing discover panel section
+          (or wherever you want Discover content to render).
+       3. Paste tab.js into your site's <script> block, edit the DISCOVER
+          data object near the top, and ensure your tab nav has a button
+          with data-tab="discover".
+
+     This file is the INNER container only — just the empty div that tab.js
+     writes into. Your host site already has its own panel/tab structure;
+     drop this inside the relevant panel.
+
+     Typical host structure:
+
+         <section class="panel" id="p-discover" role="tabpanel">
+           <!-- paste the snippet below here -->
+         </section>
+
+     The container id MUST be "discover-content" — tab.js looks for it by id.
+     All Discover-specific CSS classes are prefixed "disc-" so this block
+     is fully self-contained and cannot collide with host CSS.
+
+     DO NOT MODIFY this block when porting to a new build. Only the data
+     in tab.js needs to change per client.
+     ════════════════════════════════════════════════════════════════════════════ -->
+
+<!-- ════ BEGIN DISCOVER TAB v1.1 ════ -->
+<div id="discover-content"></div>
+<!-- ════ END DISCOVER TAB ════ -->
 
