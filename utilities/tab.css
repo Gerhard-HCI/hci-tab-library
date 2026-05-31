@@ -30,5 +30,106 @@
      --c-bg #D9EAD3  --c-ink #2a5c2a  --c-br #b8d4b0   confirmed (green)
      --r-bg #00FFFF  --r-ink #00595a  --r-br #00cccc   requested (cyan)
      --w-bg #FFF2CC  --w-ink #7a5c1f  --w-br #ecd99c   walk-in (yellow)
-     --s-bg #F4CCCC  --s-ink #
+     --s-bg #F4CCCC  --s-ink #7a3c3c  --s-br #e0a8a8   self-booked (pink)
+     --g-bg #9FC5E8  --g-ink #1c4a76  --g-br #76a8d2   suggestion (blue)
 
+   DO NOT MODIFY this block when porting to a new build.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ════ BEGIN UTILITIES TAB v1.0 ════ */
+
+/* ─── Card container — base unit for every Utilities section ─── */
+.util-card{background:var(--card,#fff);border:1px solid var(--line,#e3dccd);border-radius:var(--rad,16px);padding:22px 20px;margin-bottom:16px;box-shadow:var(--sh-sm,0 1px 3px rgba(10,23,51,.06))}
+.util-card h3{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:22px;font-weight:500;letter-spacing:-.01em;margin:0 0 16px;color:var(--ink,#0a1733)}
+.util-card h4{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:16px;font-weight:500;margin:18px 0 8px;color:var(--ink-soft,#2a3554)}
+.util-note{font-size:12.5px;color:var(--ink-soft,#2a3554);margin:-6px 0 16px;padding:12px 14px;background:var(--paper-warm,#efeae0);border-radius:var(--rad-sm,10px);border-left:2px solid var(--gold,#b08d4a);line-height:1.55}
+.util-note strong{color:var(--ink,#0a1733);font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-style:italic;font-size:14.5px}
+
+/* ─── Tracker: status legend + table rows ─── */
+.util-legend{display:flex;flex-wrap:wrap;gap:6px;margin:-2px 0 14px}
+.util-b{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:4px 9px;border-radius:99px;white-space:nowrap;border:1px solid transparent}
+.util-b.confirmed { background:#D9EAD3; color:#2a5c2a; border-color:#b8d4b0 }
+.util-b.requested { background:#00FFFF; color:#00595a; border-color:#00cccc }
+.util-b.walk-in   { background:#FFF2CC; color:#7a5c1f; border-color:#ecd99c }
+.util-b.self      { background:#F4CCCC; color:#7a3c3c; border-color:#e0a8a8 }
+.util-b.suggestion{ background:#9FC5E8; color:#1c4a76; border-color:#76a8d2 }
+.util-b.tentative { background:#f0ebe0; color:#6f5630; border-color:#dccc9f }
+.util-b.transfer  { background:#e6e7eb; color:#3b3f4d; border-color:#c4c7d1 }
+
+.util-tr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--line-soft,#ede7d8)}
+.util-tr:first-of-type{border-top:0;padding-top:4px}
+.util-tr.checked .util-tr-info{opacity:.45;text-decoration:line-through;text-decoration-thickness:1px}
+.util-tr-info{flex:1;min-width:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .15s}
+.util-tr .n{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:17px;font-weight:500;margin-bottom:2px;line-height:1.2;color:var(--ink,#0a1733)}
+.util-tr .m{font-size:12px;color:var(--ink-mute,#5b6685)}
+.util-tr .gj{font-size:11.5px;color:var(--gold,#b08d4a);font-style:italic;font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif)}
+.util-cp{flex-shrink:0;padding:5px 10px;border-radius:99px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;white-space:nowrap;margin-top:2px;border:1px solid transparent}
+.util-cp.confirmed { background:#D9EAD3; color:#2a5c2a; border-color:#b8d4b0 }
+.util-cp.requested { background:#00FFFF; color:#00595a; border-color:#00cccc }
+.util-cp.walk-in   { background:#FFF2CC; color:#7a5c1f; border-color:#ecd99c }
+.util-cp.self      { background:#F4CCCC; color:#7a3c3c; border-color:#e0a8a8 }
+.util-cp.suggestion{ background:#9FC5E8; color:#1c4a76; border-color:#76a8d2 }
+.util-empty{font-size:13px;color:var(--ink-mute,#5b6685);font-style:italic;padding:14px 0;text-align:center}
+
+/* ─── Dietary: per-person allergy lists + show-the-chef card ─── */
+.util-diet-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.util-diet-head h3{margin:0}
+.util-crit{font-size:9px;letter-spacing:.2em;background:var(--sakura,#d9748a);color:#fff;padding:3px 7px;border-radius:3px;font-weight:600;text-transform:uppercase}
+.util-diet-person{margin-top:18px;padding-top:14px;border-top:1px solid var(--line-soft,#ede7d8)}
+.util-diet-person:first-of-type{margin-top:0;padding-top:0;border-top:0}
+.util-diet-name{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:18px;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:8px;color:var(--ink,#0a1733)}
+.util-badge-mini{font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:2px 7px;border-radius:99px;background:var(--paper-warm,#efeae0);color:var(--ink-mute,#5b6685);border:1px solid var(--line,#e3dccd)}
+.util-diet-list{margin:0;padding:0;list-style:none}
+.util-diet-list li{padding:7px 0;display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--ink-soft,#2a3554);border-top:1px solid var(--line-soft,#ede7d8);line-height:1.5}
+.util-diet-list li:first-child{border-top:0}
+.util-diet-list .it{flex:1;color:var(--ink,#0a1733);font-weight:500}
+.util-diet-list .sv{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:99px;flex-shrink:0;white-space:nowrap;align-self:center}
+.util-diet-list .sv.avoid{background:#F4CCCC;color:#7a3c3c;border:1px solid #e0a8a8}
+.util-diet-list .sv.allergy{background:var(--sakura,#d9748a);color:#fff}
+.util-diet-jp{margin-top:18px;padding:12px 14px;background:var(--ink,#0a1733);color:#f3eee0;border-radius:var(--rad-sm,10px)}
+.util-diet-jp-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft,#c9a55c);font-weight:600;margin-bottom:8px}
+.util-diet-jp-line{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:15px;line-height:1.5;margin-bottom:4px}
+.util-diet-jp-line .ro{font-style:italic;color:var(--gold-soft,#c9a55c);font-size:13px;display:block;margin-top:2px}
+.util-diet-jp-line.summary{margin-top:10px;font-size:13.5px;line-height:1.7}
+.util-diet-jp-line.summary strong{font-weight:600}
+.util-diet-jp-en{font-size:11.5px;color:rgba(243,238,224,.55);font-style:italic;font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);margin-top:8px;line-height:1.5}
+
+/* ─── FX converter: two inputs + rate display ─── */
+.util-fx{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:end;margin-bottom:14px}
+.util-fxf{display:flex;flex-direction:column;gap:4px}
+.util-fxf label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute,#5b6685)}
+.util-fxf input{font:inherit;font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:24px;font-weight:500;padding:8px 10px;border:1px solid var(--line,#e3dccd);border-radius:var(--rad-sm,10px);background:var(--paper,#f7f4ee);color:var(--ink,#0a1733);width:100%;-moz-appearance:textfield}
+.util-fxf input::-webkit-outer-spin-button,.util-fxf input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.util-fxf input:focus{outline:2px solid var(--gold,#b08d4a);outline-offset:-1px}
+.util-fxsw{align-self:center;margin-bottom:4px;width:36px;height:36px;border-radius:50%;background:var(--paper-warm,#efeae0);display:grid;place-items:center;color:var(--ink-soft,#2a3554);font-size:18px}
+.util-fxrt{font-size:13px;color:var(--ink-mute,#5b6685);text-align:center;display:flex;justify-content:center;align-items:center;gap:8px}
+.util-fxrt strong{color:var(--ink,#0a1733);font-weight:500}
+.util-fxrt button{font-size:11px;text-decoration:underline;color:var(--gold,#b08d4a);background:none;border:0;cursor:pointer;font-family:inherit;padding:0;-webkit-tap-highlight-color:transparent}
+
+/* ─── Etiquette blocks ─── */
+.util-eb{margin-top:14px}
+.util-eb:first-of-type{margin-top:0}
+.util-et{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:17px;font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:8px;color:var(--ink,#0a1733)}
+.util-et .util-crit{font-size:9px;letter-spacing:.2em;background:var(--sakura,#d9748a);color:#fff;padding:2px 6px;border-radius:3px;font-weight:600}
+.util-eb p{font-size:13.5px;color:var(--ink-soft,#2a3554);margin:0 0 8px;line-height:1.6}
+.util-eb p em{font-style:italic;color:var(--ink,#0a1733)}
+.util-eb p strong{font-weight:600;color:var(--ink,#0a1733)}
+.util-eb a{color:var(--gold,#b08d4a);border-bottom:1px solid var(--gold,#b08d4a);text-decoration:none}
+.util-eb ul{margin:8px 0 0;padding:0;list-style:none}
+.util-eb li{font-size:13.5px;color:var(--ink-soft,#2a3554);padding:6px 0 6px 26px;position:relative;line-height:1.55}
+.util-eb li::before{content:attr(data-em);position:absolute;left:0;top:6px;font-size:14px}
+.util-eb li strong{color:var(--ink,#0a1733);font-weight:600}
+
+/* ─── Travel notes list — shared with etiquette list patterns ─── */
+.util-nl{margin:6px 0 0;padding:0;list-style:none}
+.util-nl li{padding:8px 0 8px 28px;position:relative;font-size:13.5px;color:var(--ink-soft,#2a3554);line-height:1.6;border-top:1px solid var(--line-soft,#ede7d8)}
+.util-nl li:first-child{border-top:0}
+.util-nl li::before{content:attr(data-em);position:absolute;left:0;top:8px;font-size:15px}
+.util-nl strong{color:var(--ink,#0a1733);font-weight:600}
+.util-nl a{color:var(--gold,#b08d4a);border-bottom:1px solid var(--gold,#b08d4a);text-decoration:none}
+.util-p{font-size:13.5px;color:var(--ink-soft,#2a3554);margin:0 0 14px;line-height:1.6}
+.util-p:last-child{margin-bottom:0}
+.util-p strong{color:var(--ink,#0a1733);font-weight:600}
+.util-p a{color:var(--gold,#b08d4a);border-bottom:1px solid var(--gold,#b08d4a);text-decoration:none}
+
+/* ════ END UTILITIES TAB ════ */
