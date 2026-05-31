@@ -1,61 +1,105 @@
 /* ════════════════════════════════════════════════════════════════════════════
-   HCI EMERGENCY TAB — v1.0 — STYLES
+   HCI EMERGENCY TAB — v1.0 — SCRIPT
    Source: gerhard-hci/hci-tab-library/emergency
 
-   All classes are namespaced em-* so this block is fully self-contained and
-   cannot collide with host CSS. It assumes the host site defines the
-   standard HCI palette as CSS custom properties on :root.  If a variable
-   is missing, the rule falls back to a sensible default so the tab still
-   renders on a bare page.
+   Self-contained module. Renders into <div id="emergency-content">.
+   Auto-initialises on DOMContentLoaded if the container exists.
 
-   EXPECTED HOST CSS VARIABLES (with fallbacks shown):
-     --rad         16px        large card radius
-     --rad-sm      10px        small card radius
-     --card        #fff        card background
-     --line        #e3dccd     hard divider line
-     --line-soft   #ede7d8     soft divider line
-     --ink         #0a1733     primary text / dark accents
-     --ink-soft    #2a3554     secondary text
-     --ink-mute    #5b6685     muted captions
-     --gold        #b08d4a     accent gold
-     --serif       'Cormorant Garamond', 'Times New Roman', serif
-     --sh-sm       0 1px 3px rgba(10,23,51,.06)
+   API exposed on window.HCIEmergency:
+     HCIEmergency.render()                   re-render
+     HCIEmergency.setData(emergencyObj)      replace dataset at runtime
+     HCIEmergency.getData()                  read the active dataset
 
-   DO NOT MODIFY this block when porting to a new build.
+   DATA SHAPE — every section is optional; pass null or [] to hide it,
+   omit it to use the default (where one exists). See README.md for full
+   schema and examples.
+
+     EMERGENCY = {
+       services: [             // defaults to Japan (110 police, 119 ambulance)
+         { emoji:'🚓', label:'Police', number:'110' },
+         { emoji:'🚑', label:'Ambulance / Fire', number:'119' }
+       ],
+       operatorTitle: 'Happy Camper · 24h',
+       operatorContacts: [     // trip operator team — no default
+         { emoji:'⛩', name:'Gerhard', role:'…', tel:'+8180…', primary:true }
+       ],
+       hospitals: [            // English-speaking hospitals — no default
+         { emoji:'🏥', name:'…', note:'…', mapsQuery:'…' }
+       ],
+       embassiesTitle: 'Embassies',
+       embassies: [            // nationality-specific — no default
+         { emoji:'🇩🇪', name:'…', tel:'+813…' }
+       ],
+       phrases: [              // defaults to the standard HCI Japan set
+         { ja:'…', romaji:'…', en:'…' }
+       ]
+     };
+
+   EDIT BELOW: replace the EMERGENCY object with your trip's data.
+   Sensible defaults are pre-filled for Japan emergency numbers and
+   essential phrases — override only what's different per build.
    ════════════════════════════════════════════════════════════════════════════ */
 
 /* ════ BEGIN EMERGENCY TAB v1.0 ════ */
+(function(){
+'use strict';
 
-/* Card container — base unit for every Emergency section */
-.em-card{background:var(--card,#fff);border:1px solid var(--line,#e3dccd);border-radius:var(--rad,16px);padding:22px 20px;margin-bottom:16px;box-shadow:var(--sh-sm,0 1px 3px rgba(10,23,51,.06))}
-.em-card h3{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:22px;font-weight:500;letter-spacing:-.01em;margin:0 0 4px;color:var(--ink,#0a1733)}
-.em-card-sub{font-size:12px;color:var(--ink-mute,#5b6685);margin:0 0 14px;letter-spacing:.04em}
+// ─────────────────────────────────────────────────────────────────────────────
+// [EDIT] DATA — replace this EMERGENCY object with the contacts for your
+// current build. Schema documented in README.
+// ─────────────────────────────────────────────────────────────────────────────
+  var EMERGENCY = {
+    // Top-row services. Default = Japan (110 / 119). Override for other countries.
+    services: [
+      { emoji:'🚓', label:'Police',            number:'110' },
+      { emoji:'🚑', label:'Ambulance / Fire',  number:'119' }
+    ],
 
-/* Two-up grid for the big emergency-number buttons (Police / Ambulance) */
-.em-eg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-.em-eb-btn{background:var(--ink,#0a1733);color:#f3eee0;padding:14px;border-radius:var(--rad-sm,10px);display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:72px;border:1px solid rgba(255,255,255,.08);text-align:left;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:background .15s}
-.em-eb-btn:active{background:var(--ink-soft,#2a3554)}
-.em-eb-btn .l{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,238,224,.65)}
-.em-eb-btn .v{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:18px;font-weight:500}
+    // Trip-operator contacts. Defaults to standard Happy Camper team.
+    operatorTitle: 'Happy Camper · 24h',
+    operatorContacts: [
+      { emoji:'⛩', name:'Gerhard', role:'Happy Camper · Japan line · WhatsApp',  tel:'+818069892107', primary:true },
+      { emoji:'🍱', name:'Tomoko',  role:'Happy Camper · Tokyo office · backup line', tel:'+819061589006' }
+    ],
 
-/* Contact row — used for operator contacts, hospitals, embassies */
-.em-cr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line-soft,#ede7d8)}
-.em-cr:first-of-type{border-top:0}
-.em-cr .n{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:17px;font-weight:500;margin-bottom:2px;color:var(--ink,#0a1733)}
-.em-cr .r{font-size:11.5px;color:var(--ink-mute,#5b6685)}
+    // English-speaking hospitals. Curate per trip's cities.
+    hospitalsTitle: 'English-speaking hospitals',
+    hospitals: [
+      { emoji:'🏥', name:"St. Luke's International",   note:'Tokyo · Chuo · English staff 24/7',  mapsQuery:"St. Luke's International Hospital Tokyo" },
+      { emoji:'🏥', name:'Tokyo Midtown Medical',      note:'Roppongi · International clinic',    mapsQuery:'Tokyo Midtown Medical Center' },
+      { emoji:'🏥', name:'Japan Baptist Hospital',     note:'Kyoto · English-speaking staff',     mapsQuery:'Japan Baptist Hospital Kyoto' }
+    ],
 
-/* Pill button to the right of each contact row (Call / Map) */
-.em-cb{background:var(--ink,#0a1733);color:#f3eee0;padding:9px 16px;border-radius:99px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;flex-shrink:0;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:background .15s,opacity .15s}
-.em-cb:active{background:var(--ink-soft,#2a3554)}
-.em-cb.alt{background:var(--card,#fff);color:var(--ink,#0a1733);border:1px solid var(--ink,#0a1733)}
-.em-cb.alt:active{background:var(--line-soft,#ede7d8)}
+    // Embassies / consulates. Set per guest nationality. Defaults include
+    // both German and US contacts — most HCI clients are one or the other.
+    // For single-nationality groups, trim the list to just the relevant pair.
+    embassiesTitle: 'Embassies',
+    embassies: [
+      { emoji:'🇩🇪', name:'German Embassy Tokyo',         tel:'+81357917700' },
+      { emoji:'🇩🇪', name:'German Consulate Osaka',       tel:'+81664405070' },
+      { emoji:'🇺🇸', name:'US Embassy Tokyo',             tel:'+81332245000' },
+      { emoji:'🇺🇸', name:'US Consulate Osaka-Kobe',      tel:'+81663155900' }
+    ],
 
-/* Essential-Japanese phrase row */
-.em-ph{display:grid;gap:4px;padding:14px 0;border-top:1px solid var(--line-soft,#ede7d8)}
-.em-ph:first-of-type{border-top:0}
-.em-ph .ja{font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif);font-size:22px;font-weight:500;line-height:1.2;color:var(--ink,#0a1733)}
-.em-ph .ro{font-style:italic;color:var(--gold,#b08d4a);font-size:13.5px;font-family:var(--serif,'Cormorant Garamond','Times New Roman',serif)}
-.em-ph .en{font-size:13px;color:var(--ink-mute,#5b6685)}
+    // Essential Japanese phrases. Default set covers reservation, thanks, help.
+    phrasesTitle: 'Essential Japanese',
+    phrases: [
+      { ja:'予約しています',     romaji:'Yoyaku shiteimasu',     en:'I have a reservation' },
+      { ja:'ご馳走様でした',     romaji:'Gochisousama deshita',  en:'Thank you for the meal (after eating)' },
+      { ja:'いただきます',       romaji:'Itadakimasu',           en:'Thank you for the meal (before eating)' },
+      { ja:'ありがとうございます', romaji:'Arigatou gozaimasu',  en:'Thank you (polite)' },
+      { ja:'すみません',         romaji:'Sumimasen',             en:"Excuse me / I'm sorry" },
+      { ja:'英語を話せますか',   romaji:'Eigo o hanasemasu ka',  en:'Do you speak English?' },
+      { ja:'助けてください',     romaji:'Tasukete kudasai',      en:'Please help me' }
+    ]
+  };
 
-/* ════ END EMERGENCY TAB ════ */
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDERING — do not modify below this line when porting.
+// ─────────────────────────────────────────────────────────────────────────────
 
+  var DATA = EMERGENCY;
+
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function gmUrl(q){return 'https://maps.google.com/?q='+encodeURIComponent(q||'');}
+  function telUrl(t){return 'tel:'+String(t||'').replace(/[^+
