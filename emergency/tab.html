@@ -1,0 +1,28 @@
+<!-- ════════════════════════════════════════════════════════════════════════════
+     HCI EMERGENCY TAB — v1.0
+     Source: gerhard-hci/hci-tab-library/emergency
+     Origin: ported from the Rotberg Japan 2026 build
+
+     INTEGRATION (3 steps):
+       1. Paste tab.css into your site's <style> block (or link as a file).
+       2. Paste this container into your tab-panels section.
+       3. Paste tab.js into your site's <script> block, edit the EMERGENCY
+          data object near the top, and ensure your tab nav has a button
+          with data-tab="emergency".
+
+     The wrapper id MUST be "emergency-content" — tab.js looks for it by id.
+     If your host uses a different panel id (e.g. p-emergency, tab-emergency),
+     keep that wrapper but place the inner <div id="emergency-content"> inside.
+
+     All Emergency-specific classes are namespaced "em-*" so this block is
+     fully self-contained and cannot collide with host CSS.
+
+     DO NOT MODIFY this block when porting to a new build. Only the data
+     in tab.js needs to change per client.
+     ════════════════════════════════════════════════════════════════════════════ -->
+
+<!-- ════ BEGIN EMERGENCY TAB v1.0 ════ -->
+<section class="panel" id="p-emergency" role="tabpanel" aria-labelledby="tab-btn-emergency">
+  <div id="emergency-content"></div>
+</section>
+<!-- ════ END EMERGENCY TAB ════ -->
