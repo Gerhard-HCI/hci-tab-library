@@ -1,1 +1,105 @@
+Here’s the full tab.css:
 
+/* =====================================================================
+   HCI TAB LIBRARY · statement/tab.css
+   Merge into your host stylesheet. Backgrounds use literal hex on purpose
+   (iOS Safari drops var(--*) on background properties). The :root and
+   .card rules are included for standalone use; harmless if already present.
+   ===================================================================== */
+
+:root{
+  --ink:#211C17;          /* sumi text            */
+  --ink-soft:#6E655A;     /* secondary text       */
+  --hair:#E8E1D5;         /* hairline borders     */
+  --indigo:#2E4257;       /* kon-iro accent       */
+  --gold:#B0925B;         /* fine gold accent     */
+  --sakura:#CC7D88;       /* today marker         */
+  --maxw:680px;
+  /* NB: iOS Safari drops var(--*) on background properties, so every
+     background below uses a literal hex value on purpose. */}
+.card{
+  background:#FFFFFF;border:1px solid var(--hair);border-radius:16px;
+  box-shadow:0 1px 2px rgba(31,26,20,.04),0 10px 26px rgba(31,26,20,.05);
+  margin-bottom:14px;overflow:hidden;}
+/* statement / lock */
+.lock-wrap{text-align:center;padding:34px 22px 30px;}
+.lock-ico{font-size:30px;}
+.lock-h{font-family:"Cormorant Garamond",serif;font-size:25px;font-weight:500;margin:12px 0 4px;}
+.lock-p{font-size:13px;color:var(--ink-soft);max-width:330px;margin:0 auto 20px;}
+.pw-row{display:flex;gap:9px;max-width:340px;margin:0 auto;}
+.pw-input{flex:1;font-family:inherit;font-size:16px;letter-spacing:.06em;
+  background:#F8F4EC;border:1px solid var(--hair);border-radius:11px;padding:12px 14px;min-height:48px;text-align:center;}
+.pw-input:focus{outline:none;border-color:var(--indigo);background:#FFFFFF;}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:500;
+  background:#2E4257;color:#fff;border-radius:11px;padding:0 18px;min-height:48px;min-width:48px;}
+.btn:active{background:#243648;}
+.btn.block{width:100%;}
+.btn.alt{background:#F6F1E8;color:var(--ink);border:1px solid var(--hair);}
+.lock-err{color:#B5474F;font-size:12.5px;margin-top:13px;min-height:16px;}
+.lock-hint{font-size:11px;color:var(--ink-soft);margin-top:18px;}
+/* statement view */
+.stmt-head{padding:18px 16px 4px;}
+.stmt-as{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
+.stmt-balance{font-family:"Cormorant Garamond",serif;font-size:40px;font-weight:600;line-height:1;margin:8px 0 2px;}
+.stmt-balance.zero{color:var(--indigo);}
+.stmt-blabel{font-size:12.5px;color:var(--ink-soft);}
+.stmt-sec{padding:6px 16px 4px;}
+.stmt-sec-h{display:flex;justify-content:space-between;align-items:baseline;
+  border-top:1px solid var(--hair);padding:14px 0 6px;}
+.stmt-sec-h .n{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
+.stmt-sec-h .v{font-variant-numeric:tabular-nums;font-size:14px;font-weight:600;}
+.stmt-sec-note{font-size:12px;color:var(--ink-soft);font-style:italic;margin:-2px 0 4px;}
+.stmt-li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;}
+.stmt-li .li-l{font-size:14px;}
+.stmt-li .li-n{font-size:11.5px;color:var(--ink-soft);margin-top:1px;}
+.stmt-li .li-v{font-variant-numeric:tabular-nums;font-size:14px;flex-shrink:0;}
+.stmt-li .li-v.incl{color:var(--ink-soft);font-style:italic;font-size:12px;}
+.stmt-total{display:flex;justify-content:space-between;align-items:baseline;
+  border-top:2px solid var(--ink);margin-top:8px;padding:13px 16px;}
+.stmt-total .n{font-family:"Cormorant Garamond",serif;font-size:19px;}
+.stmt-total .v{font-variant-numeric:tabular-nums;font-size:19px;font-weight:600;}
+.stmt-pay{padding:4px 16px 2px;}
+.stmt-pay .empty{font-size:12.5px;color:var(--ink-soft);font-style:italic;padding:4px 0;}
+.stmt-fx{font-size:11px;color:var(--ink-soft);padding:14px 16px 18px;line-height:1.5;}
+.stmt-lockbtn{font-size:13px;color:var(--indigo);background:#F6F1E8;border:1px solid var(--hair);
+  cursor:pointer;font-family:inherit;display:block;margin:6px auto 22px;padding:11px 22px;
+  border-radius:11px;min-height:44px;}
+.stmt-lockbtn:active{background:#EDE6D8;}
+/* encrypt console */
+#console{display:none;position:fixed;inset:0;z-index:90;background:#1F1A14;color:#EDE7DB;overflow:auto;padding:22px 18px 40px;}
+#console.show{display:block;}
+.con-w{max-width:600px;margin:0 auto;}
+.con-h{font-family:"Cormorant Garamond",serif;font-size:24px;margin:4px 0 2px;}
+.con-sub{font-size:12.5px;color:#A99F8E;margin-bottom:18px;}
+.con-l{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#A99F8E;margin:16px 0 6px;}
+.con-in,.con-ta{width:100%;font-family:"DM Mono",ui-monospace,monospace;font-size:13px;color:#F4EFE6;
+  background:#2a241c;border:1px solid #3a3328;border-radius:10px;padding:11px 12px;}
+.con-ta{min-height:200px;resize:vertical;line-height:1.45;white-space:pre;}
+.con-out{min-height:120px;word-break:break-all;white-space:normal;}
+.con-btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px;}
+.con-btn{appearance:none;border:1px solid #4a4234;background:#2E4257;color:#fff;border-radius:10px;
+  font-family:inherit;font-size:13px;padding:11px 15px;min-height:44px;cursor:pointer;}
+.con-btn.sec{background:#2a241c;color:#EDE7DB;}
+.con-msg{font-size:12px;margin-top:10px;min-height:15px;color:#C9A86A;}
+.con-close{position:absolute;top:18px;right:18px;background:none;border:0;color:#A99F8E;font-size:24px;cursor:pointer;}
+.stmt-internal-banner{background:#3A2E22;color:#E9C887;font-size:11.5px;letter-spacing:.03em;
+  text-align:center;padding:9px 14px;border-radius:11px;margin-bottom:12px;}
+.li-int{font-size:11px;color:#9A8F7E;font-variant-numeric:tabular-nums;margin-top:3px;}
+.stmt-pl{margin:8px 16px 4px;background:#F3ECE0;border:1px solid var(--hair);border-radius:12px;padding:4px 14px;}
+.pl-row{display:flex;justify-content:space-between;padding:8px 0;font-variant-numeric:tabular-nums;
+  font-size:13.5px;border-bottom:1px solid #E7DECF;}
+.pl-row:last-child{border-bottom:0;}
+.pl-row.profit{font-weight:600;color:#2E4257;}
+.stmt-pay-cta{padding:4px 16px 12px;}
+.paybtn{display:block;text-align:center;text-decoration:none;font-family:inherit;font-weight:600;
+  font-size:15px;color:#fff;background:#2E4257;border-radius:13px;padding:15px 18px;min-height:52px;
+  box-shadow:0 6px 16px rgba(46,66,87,.22);}
+.paybtn:active{background:#243648;}
+.paybtn.disabled{background:#ECE5D8;color:#9A8F7E;box-shadow:none;cursor:default;font-weight:500;}
+.con-pay-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;}
+.con-pay-row .con-in{flex:1 1 110px;min-width:0;}
+.con-pay-row .con-btn{flex:1 1 100%;}
+.paybtn-sub{text-align:center;font-size:11px;color:#6E655A;margin-top:7px;}
+
+
+One note for pasting into a host that already has its own :root and .card: those two rules at the top are duplicates you can safely drop if your site already defines them (the values match what the rest of these rules expect).
