@@ -1,1 +1,71 @@
+<!-- =====================================================================
+  HCI TAB LIBRARY · statement/tab.html   (fragments to paste into a host site)
+  ===================================================================== -->
+
+<!-- (1) NAV BUTTON — place inside  <nav class="tabs"><div class="tabs-inner">  -->
+<button class="tab" role="tab" aria-selected="false" data-tab="statement"><span class="lk">🔒</span>Statement</button>
+
+
+<!-- (2) PANEL — place inside <main>, alongside your other .panel sections -->
+<section class="panel" id="panel-statement" role="tabpanel">
+    <div class="card" id="stmt-lock">
+      <div class="lock-wrap">
+        <div class="lock-ico">🔒</div>
+        <div class="lock-h">Your running statement</div>
+        <p class="lock-p">Enter the access code shared with you to view your itemised charges and balance.</p>
+        <div class="pw-row">
+          <input class="pw-input" id="stmt-pw" type="password" inputmode="text"
+                 autocomplete="off" placeholder="Access code" aria-label="Access code">
+          <button class="btn" id="stmt-unlock">Open</button>
+        </div>
+        <div class="lock-err" id="stmt-err"></div>
+        <div class="lock-hint">Private to the lead guest · figures in USD</div>
+      </div>
+    </div>
+    <div id="stmt-view"></div>
+  </section>
+
+
+<!-- (3) ENCRYPT CONSOLE — place near the end of <body>, before your scripts -->
+<div id="console">
+  <div class="con-w">
+    <button class="con-close" id="con-close" aria-label="Close">×</button>
+    <div class="con-h">Statement · encrypt console</div>
+    <div class="con-sub">One master sheet &rarr; two encrypted blobs. Cost fields are auto-removed from the guest blob.</div>
+
+    <div class="con-l">1 · Access codes</div>
+    <input class="con-in" id="con-pw-guest" type="text" placeholder="Guest code (e.g. GH)" autocomplete="off" style="margin-bottom:8px">
+    <input class="con-in" id="con-pw-internal" type="text" placeholder="Internal code (e.g. TM)" autocomplete="off">
+
+    <div class="con-btns">
+      <button class="con-btn sec" id="con-load">↓ Load current (internal code)</button>
+      <button class="con-btn sec" id="con-template">＋ Blank template</button>
+    </div>
+
+    <div class="con-l">2 · Master statement — add "cost" per item (internal only)</div>
+    <textarea class="con-ta" id="con-json" spellcheck="false"></textarea>
+
+    <div class="con-l" style="margin-top:16px">2b · Record a payment (tap-only — appends to the sheet above)</div>
+    <div class="con-pay-row">
+      <input class="con-in" id="con-pay-date" type="date" aria-label="Payment date">
+      <input class="con-in" id="con-pay-amt" type="number" inputmode="decimal" placeholder="Amount (USD)" aria-label="Payment amount">
+      <input class="con-in" id="con-pay-label" type="text" placeholder="Label (e.g. Stripe invoice)" aria-label="Payment label">
+      <button class="con-btn sec" id="con-pay-add">＋ Add payment to sheet</button>
+    </div>
+
+    <div class="con-btns" style="margin-top:16px">
+      <button class="con-btn" id="con-encrypt">🔒 Encrypt &amp; generate both blobs</button>
+    </div>
+
+    <div class="con-l">3a · Guest blob — paste into ENC_GUEST</div>
+    <textarea class="con-ta con-out" id="con-out-guest" readonly spellcheck="false"></textarea>
+    <div class="con-btns"><button class="con-btn sec" id="con-copy-guest">⧉ Copy guest blob</button></div>
+
+    <div class="con-l">3b · Internal blob — paste into ENC_INTERNAL</div>
+    <textarea class="con-ta con-out" id="con-out-internal" readonly spellcheck="false"></textarea>
+    <div class="con-btns"><button class="con-btn sec" id="con-copy-internal">⧉ Copy internal blob</button></div>
+
+    <div class="con-msg" id="con-msg"></div>
+  </div>
+</div>
 
